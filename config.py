@@ -14,6 +14,13 @@ my_browser = "firefox"
 my_editor = "atom"
 
 
+## Abstract Shape ##
+colors = [["#ffffff", "#ffffff"], # color 0
+          ["#202227", "#202227"], # color 1
+          ["#cf324e", "#cf324e"], # color 2
+          ["#ff627f", "#ff627f"]] # color 3
+
+
 keys = [
     # Switch between windows in current stack pane
     Key([mod], "k", lazy.layout.down()),
@@ -49,6 +56,7 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
 ]
 
+
 group_names = 'WWW CHT SYS DEV ZSH ETC'.split()
 groups = [Group(name, layout='columns') for name in group_names]
 for i, name in enumerate(group_names):
@@ -57,41 +65,22 @@ for i, name in enumerate(group_names):
         Key([mod], indx, lazy.group[name].toscreen()),
         Key([mod, 'shift'], indx, lazy.window.togroup(name))]
 
+
 layouts = [
     layout.Max(),
     # layout.Stack(num_stacks=2),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
-     layout.Columns(border_focus = '#ee237d'),
-     layout.Matrix(border_focus = '#ee237d'),
+     layout.Columns(border_focus = '#ff627f'),
+    # layout.Matrix(border_focus = '#ff627f'),
     # layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
-     layout.Tile(border_focus = '#ee237d'),
+    # layout.Tile(border_focus = '#ff627f'),
     # layout.TreeTab(),
     # layout.VerticalTile(),
-     layout.Zoomy(),
+    # layout.Zoomy(),
 ]
-
-
-## Vader ##
-colors = [["#001334", "#001334"], # color 0
-          ["#A2487B", "#A2487B"], # color 1
-          ["#c7d5d9", "#c7d5d9"], # color 2
-          ["#376692", "#376692"], # color 3
-          ["#ee237d", "#ee237d"], # color 4
-          ["#43A8C3", "#43A8C3"], # color 5
-          ["#8b9597", "#8b9597"]] # color 6
-
-
-## Fairy Floss ##
-#colors = [["#42395D", "#42395D"], # color 0
-#          ["#716799", "#716799"], # color 1
-#          ["#ffffff", "#ffffff"], # color 2
-#          ["#AE81FF", "#AE81FF"], # color 3
-#          ["#C5A3FF", "#C5A3FF"], # color 4
-#          ["#C2FFDF", "#C2FFDF"], # color 5
-#          ["#F1568E", "#F1568E"]] # color 6
 
 
 widget_defaults = dict(
@@ -118,63 +107,63 @@ screens = [
                        padding_x = 3,
                        borderwidth = 3,
                        active = colors[2],
-                       inactive = colors[3],
+                       inactive = colors[0],
                        rounded = False,
-                       highlight_color = colors[4],
+                       highlight_color = colors[3],
                        highlight_method = "line",
-                       this_current_screen_border = colors[3],
-                       this_screen_border = colors[4],
-                       other_current_screen_border = colors[0],
-                       other_screen_border = colors[0],
-                       foreground = colors[2],
-                       background = colors[0]
+                       this_current_screen_border = colors[2],
+                       this_screen_border = colors[1],
+                       other_current_screen_border = colors[1],
+                       other_screen_border = colors[1],
+                       foreground = colors[0],
+                       background = colors[1]
                                 ),
 
                 widget.Sep(
                        linewidth = 0,
                        padding = 10,
-                       foreground = colors[2],
-                       background = colors[0]
+                       foreground = colors[0],
+                       background = colors[1]
                           ),
 
                 widget.Prompt(
                        #padding = 10,
-                       foreground = colors[2],
-                       background = colors[4]
+                       foreground = colors[0],
+                       background = colors[1]
                              ),
 
                 widget.Sep(
                        linewidth = 0,
                        padding = 10,
-                       foreground = colors[2],
-                       background = colors[0]
+                       foreground = colors[0],
+                       background = colors[1]
                                                        ),
 
                 widget.WindowName(
-                       foreground = colors[2],
-                       background = colors[0],
+                       foreground = colors[0],
+                       background = colors[1],
                        padding = 0,
                        margin_y = 3,
                                  ),
 
                 widget.Pacman(
                        update_interval = 1800,
-                       foreground = colors[2],
+                       foreground = colors[0],
                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo pacman -Syu')},
-                       background = colors[0]
+                       background = colors[1]
                              ),
 
                widget.Sep(
                       linewidth = 0,
                       padding = 3,
-                      foreground = colors[2],
-                      background = colors[0]
+                      foreground = colors[0],
+                      background = colors[1]
                          ),
 
 		        widget.Battery(
                         format = '{char} {percent:2.0%}',
-                        foreground = colors[2],
-                        background = colors[0],
+                        foreground = colors[0],
+                        background = colors[1],
                         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo shutdown now')},
                     #    padding = 0
                               ),
@@ -182,29 +171,29 @@ screens = [
                widget.Sep(
                         linewidth = 0,
                         padding = 3,
-                        foreground = colors[2],
-                        background = colors[0]
+                        foreground = colors[0],
+                        background = colors[1]
                          ),
 
                 widget.QuickExit(
                         default_text = '[X]',
                         countdown_format = '{}',
-                        foreground = colors[2],
-                        background = colors[0],
+                        foreground = colors[0],
+                        background = colors[1],
                     #    padding = 0
                                 ),
 
                 widget.Sep(
                        linewidth = 0,
                        padding = 3,
-                       foreground = colors[2],
-                       background = colors[0]
+                       foreground = colors[0],
+                       background = colors[1]
                           ),
 
 		        widget.Clock(
                         format='%R',
-                        foreground = colors[2],
-                        background = colors[0],
+                        foreground = colors[0],
+                        background = colors[1],
                         padding = 0,
                         mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('dmenu_run')}
                             ),
@@ -212,14 +201,15 @@ screens = [
                 widget.Sep(
                        linewidth = 0,
                        padding = 5,
-                       foreground = colors[2],
-                       background = colors[0]
+                       foreground = colors[0],
+                       background = colors[1]
                           ),
             ],
             24,
         ),
     ),
 ]
+
 
 # Drag floating layouts.
 mouse = [
@@ -230,6 +220,7 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
+
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 main = None
@@ -237,7 +228,7 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
-    border_focus = '#376692',
+    border_focus = colors[3],
     float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     {'wmclass': 'confirm'},
@@ -254,7 +245,9 @@ floating_layout = layout.Floating(
     {'wname': 'branchdialog'},  # gitk
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
-                                    ])
+                    ])
+
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
