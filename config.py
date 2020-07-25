@@ -160,7 +160,7 @@ screens = [
                 widget.Pacman(
                        update_interval = 1800,
                        foreground = colors[2],
-                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
+                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo pacman -Syu')},
                        background = colors[0]
                              ),
 
@@ -175,7 +175,7 @@ screens = [
                         format = '{char} {percent:2.0%}',
                         foreground = colors[2],
                         background = colors[0],
-                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e sudo shutdown now')},
+                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo shutdown now')},
                     #    padding = 0
                               ),
 
