@@ -9,7 +9,7 @@ from typing import List  # noqa: F401
 
 
 mod = "mod4"
-my_term = "tilix"
+my_term = "terminator"
 my_browser = "firefox"
 my_editor = "atom"
 
@@ -46,6 +46,7 @@ keys = [
     Key([mod], "c", lazy.spawn("ferdi")),
     Key([mod], "e", lazy.spawn(my_editor)),
     Key([mod], "a", lazy.spawn("xfce4-appfinder")),
+#    Key([mod], "PrtSc", lazy.spawn("kazam")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
@@ -136,8 +137,8 @@ screens = [
                        linewidth = 0,
                        padding = 10,
                        foreground = colors[0],
-                       background = colors[1]
-                                                       ),
+                       background = colors[1],
+                           ),
 
                 widget.WindowName(
                        foreground = colors[0],
@@ -155,7 +156,7 @@ screens = [
 
                widget.Sep(
                       linewidth = 0,
-                      padding = 3,
+                      padding = 8,
                       foreground = colors[0],
                       background = colors[1]
                          ),
@@ -164,28 +165,16 @@ screens = [
                         format = '{char} {percent:2.0%}',
                         foreground = colors[0],
                         background = colors[1],
-                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo shutdown now')},
+                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo reboot')},
+                        charge_char = '+',
+                        discharge_char = '-'
                     #    padding = 0
                               ),
 
-               widget.Sep(
-                        linewidth = 0,
-                        padding = 3,
-                        foreground = colors[0],
-                        background = colors[1]
-                         ),
-
-                widget.QuickExit(
-                        default_text = '[X]',
-                        countdown_format = '{}',
-                        foreground = colors[0],
-                        background = colors[1],
-                    #    padding = 0
-                                ),
 
                 widget.Sep(
                        linewidth = 0,
-                       padding = 3,
+                       padding = 8,
                        foreground = colors[0],
                        background = colors[1]
                           ),
@@ -195,7 +184,7 @@ screens = [
                         foreground = colors[0],
                         background = colors[1],
                         padding = 0,
-                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('dmenu_run')}
+                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo shutdown now')},
                             ),
 
                 widget.Sep(
@@ -228,7 +217,7 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
-    border_focus = colors[3],
+    border_focus = "ff627f",
     float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     {'wmclass': 'confirm'},
