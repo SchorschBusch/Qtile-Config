@@ -10,6 +10,7 @@ from typing import List  # noqa: F401
 
 mod = "mod4"
 my_term = "terminator"
+my_files = "nautilus"
 my_browser = "firefox"
 my_editor = "atom"
 
@@ -22,6 +23,11 @@ colors = [["#ffffff", "#ffffff"], # color 0
 
 
 keys = [
+
+    Key([mod], "Up", lazy.layout.grow()),
+    Key([mod], "Down", lazy.layout.shrink()),
+    Key([mod], "space", lazy.layout.flip()),
+
     # Switch between windows in current stack pane
     Key([mod], "k", lazy.layout.down()),
     Key([mod], "j", lazy.layout.up()),
@@ -46,7 +52,8 @@ keys = [
     Key([mod], "c", lazy.spawn("ferdi")),
     Key([mod], "e", lazy.spawn(my_editor)),
     Key([mod], "a", lazy.spawn("xfce4-appfinder")),
-#    Key([mod], "PrtSc", lazy.spawn("kazam")),
+    Key([mod], "d", lazy.spawn(my_files)),
+    Key([mod], "0", lazy.spawn("kazam")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
@@ -55,7 +62,8 @@ keys = [
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
-]
+
+            ]
 
 
 group_names = 'WWW CHT SYS DEV ZSH ETC'.split()
@@ -72,15 +80,16 @@ layouts = [
     # layout.Stack(num_stacks=2),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
-     layout.Columns(border_focus = '#ff627f'),
+    # layout.Columns(border_focus = '#ff627f'),
     # layout.Matrix(border_focus = '#ff627f'),
-    # layout.MonadTall(),
+#    layout.MonadTall(border_focus = '#ff627f'),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(border_focus = '#ff627f'),
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
+    # layout.Floating(),
 ]
 
 
@@ -96,8 +105,8 @@ screens = [
         top=bar.Bar(
             [
                widget.Wallpaper(
-                      directory = '~/.config/qtile/Wallpaper',
-                      label = {}
+                       directory = '~/.config/qtile/Wallpaper',
+                       label = {}
                                 ),
 
                 widget.GroupBox(
@@ -150,7 +159,7 @@ screens = [
                 widget.Pacman(
                        update_interval = 1800,
                        foreground = colors[0],
-                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo pacman -Syu')},
+#                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo pacman -Syu')},
                        background = colors[1]
                              ),
 
@@ -162,36 +171,39 @@ screens = [
                          ),
 
 		        widget.Battery(
-                        format = '{char} {percent:2.0%}',
-                        foreground = colors[0],
-                        background = colors[1],
-                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo reboot')},
-                        charge_char = '+',
-                        discharge_char = '-'
-                    #    padding = 0
+                     format = '{char} {percent:2.0%}',
+                     foreground = colors[0],
+                     background = colors[1],
+#                     mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo reboot')},
+                     charge_char = '+',
+                     discharge_char = '-',
+                     full_char = '=',
+#                 update_interval = "1",
+                     low_percentage = 0.15,
+                     low_foreground = colors[2],
+                     show_short_text = False
                               ),
 
-
                 widget.Sep(
-                       linewidth = 0,
-                       padding = 8,
-                       foreground = colors[0],
-                       background = colors[1]
+                     linewidth = 0,
+                     padding = 8,
+                     foreground = colors[0],
+                     background = colors[1]
                           ),
 
 		        widget.Clock(
-                        format='%R',
-                        foreground = colors[0],
-                        background = colors[1],
-                        padding = 0,
-                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo shutdown now')},
+                     format='%R',
+                     foreground = colors[0],
+                     background = colors[1],
+                     padding = 0,
+#                      mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(my_term + ' -e sudo shutdown now')},
                             ),
 
                 widget.Sep(
-                       linewidth = 0,
-                       padding = 5,
-                       foreground = colors[0],
-                       background = colors[1]
+                     linewidth = 0,
+                     padding = 5,
+                     foreground = colors[0],
+                     background = colors[1]
                           ),
             ],
             24,
@@ -239,12 +251,6 @@ floating_layout = layout.Floating(
 
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-
-
-@hook.subscribe.startup
-def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
-    subprocess.call([home])
 
 
 wmname = "LG3D"
